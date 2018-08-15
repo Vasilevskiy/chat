@@ -1,0 +1,19 @@
+.input-message {
+  color: #303030;
+}
+
+.input-message:focus {
+  outline: 0px !important;
+  -webkit-appearance:none
+}
+
+.send-btn {
+  border: none;
+  outline: none;
+  background: #ffffff;
+  color: #303030;
+}
+
+.send-btn:hover {
+  color: #000;
+}
