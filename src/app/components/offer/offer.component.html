@@ -31,7 +31,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Received Offers</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -39,7 +39,7 @@
         <div class="modal-body">
           <ul class="list-group" *ngFor="let receivedOffers of receivedOffer">
             <li class="list-group-item mt-3">
-              <p>Price {{receivedOffers.price}} бля, блябля-блябля {{receivedOffers.qty}} {{receivedOfferCount}}</p>
+              <p>Price: {{receivedOffers.price}} Quantity: {{receivedOffers.qty}}</p>
               <div class="button-group">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="rejectOffer(receivedOffers)">Reject</button>
                 <button type="button" class="btn btn-success" (click)="acceptOffer(receivedOffers)">Accept</button>
@@ -49,7 +49,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeReceiveOfferModal()">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

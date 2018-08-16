@@ -43,6 +43,13 @@
       "message": "1",
       "timeSent": "2018-08-16T07:41:19.642Z",
       "id": 1
+    },
+    {
+      "roomId": "_amecmvaqx",
+      "senderId": 2,
+      "message": "Yo",
+      "timeSent": "2018-08-16T14:05:12.398Z",
+      "id": 2
     }
   ],
   "offers": [

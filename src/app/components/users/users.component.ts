@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
   // Filter our users list from db, because we dont need to show user that we are logged in
 
   constructor(private baseService: BaseService, private chatService: ChatService, private router: Router ) {
-    this.baseService.getUsers().subscribe( res => {
+    this.baseService.getUsers().subscribe( (res: Array<any>) => {
       res.filter( items => {
         if (items.name !== this.user.name) {
           this.contacts.push(items);

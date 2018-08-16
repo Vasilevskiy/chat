@@ -118,7 +118,7 @@ export class ChatService {
 
   // Returning our chatWith object which is person that we are talking to
 
-  getContactToChat(): object {
+  getContactToChat(): { id: number; name: string; surname: string; messages: any[]; } {
     return this.chatWith;
   }
 
