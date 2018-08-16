@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Steve"
+    },
+    {
+      "id": 2,
+      "name": "Harry"
+    },
+    {
+      "id": 3,
+      "name": "Bob"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "_zt2eucbbj",
+      "users": [
+        1,
+        2
+      ]
+    }
+  ],
+  "messages": []
+}

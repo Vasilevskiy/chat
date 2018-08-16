@@ -1,31 +1,19 @@
 <div class="users-overlay border">
   <div class="users-logo">
-    <p>Verado</p>
-    <hr>
     <div class="profile-block">
       <img src="https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif" alt="No image">
-      <p>Name Surname</p>
+      <p>{{user.name}} {{user.surname}}</p>
+      <i class="fa fa-sign-out logout" aria-hidden="true" (click)="logout()"></i>
     </div>
     <hr>
   </div>
   <div class="users-block">
     <p>Contacts</p>
     <ul class="list-group">
-      <li class="list-group-item users active">
+      <li class="list-group-item users" *ngFor="let contact of contacts" (click)="startChat(contact)" [ngClass]="{'active': contact.id === currentContactId}">
         <img src="https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif" alt="No image">
-        Cras justo odio
-      </li>
-      <li class="list-group-item users">
-        <img src="https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif" alt="No image">
-        Dapibus ac facilisis in
-      </li>
-      <li class="list-group-item users">
-        <img src="https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif" alt="No image">
-        Morbi leo risus
-      </li>
-      <li class="list-group-item users">
-        <img src="https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif" alt="No image">
-        Porta ac consectetur ac
+        <span>{{contact?.name}}</span>
+        <span>{{contact?.surname}}</span>
       </li>
     </ul>
   </div>
