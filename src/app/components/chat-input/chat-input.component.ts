@@ -1,5 +1,4 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {Message} from '../models/message.model';
 import {ChatService} from '../../services/chat.service';
 
 @Component({
@@ -15,13 +14,17 @@ export class ChatInputComponent implements OnInit, DoCheck {
 
   constructor(private chatService: ChatService) { }
 
+  // We handle our submit to let user send messages by hit enter button
 
-  handleSubmit(event) {
+  handleSubmit(event): void {
     if (event.keyCode === 13 && this.message !== '' && this.message !== undefined) {
       this.send();
     }
   }
-  send() {
+
+  // Send message
+
+  send(): void {
     if (this.message !== '' && this.message !== undefined) {
       this.chatService.sendMessage(this.message);
       this.message = '';

@@ -15,12 +15,56 @@
   ],
   "rooms": [
     {
-      "id": "_zt2eucbbj",
+      "id": "_amecmvaqx",
       "users": [
         1,
         2
       ]
+    },
+    {
+      "id": "_ksszmfygv",
+      "users": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "_xe8cmwbn2",
+      "users": [
+        2,
+        3
+      ]
     }
   ],
-  "messages": []
+  "messages": [
+    {
+      "roomId": "_amecmvaqx",
+      "senderId": 1,
+      "message": "1",
+      "timeSent": "2018-08-16T07:41:19.642Z",
+      "id": 1
+    }
+  ],
+  "offers": [
+    {
+      "accept": true,
+      "reject": false,
+      "roomId": "_amecmvaqx",
+      "price": "300",
+      "qty": "3",
+      "seller": 1,
+      "buyer": 2,
+      "id": 1
+    },
+    {
+      "accept": false,
+      "reject": true,
+      "roomId": "_amecmvaqx",
+      "price": "345345",
+      "qty": "23",
+      "seller": 1,
+      "buyer": 2,
+      "id": 2
+    }
+  ]
 }

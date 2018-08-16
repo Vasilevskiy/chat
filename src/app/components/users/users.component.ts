@@ -18,6 +18,7 @@ export class UsersComponent implements OnInit {
   public contacts = [];
   public currentContactId: string;
 
+  // Filter our users list from db, because we dont need to show user that we are logged in
 
   constructor(private baseService: BaseService, private chatService: ChatService, private router: Router ) {
     this.baseService.getUsers().subscribe( res => {
@@ -33,12 +34,28 @@ export class UsersComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
-  startChat(contact) {
+  // We begin our chat and create room in our service
+
+  startChat(contact): void {
     this.chatService.beginToChat(contact);
     this.currentContactId = contact.id;
   }
 
-  logout() {
+  // Open our send modal, to send offer
+
+  sendOffer(): void {
+    this.chatService.sendOfferModal.next('open');
+  }
+
+  // Open our receive modal, to receive modal
+
+  receiveOffer(): void {
+    this.chatService.receiveOfferModal.next('open');
+  }
+
+  // Logout
+
+  logout(): void {
     localStorage.removeItem('user');
     this.router.navigate(['/']);
   }

@@ -15,7 +15,6 @@
   left: 0;
   z-index: 2;
   top: 0;
-
 }
 #loading {
   display: inline-block;
@@ -37,7 +36,6 @@
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
-
 .chat-container {
   background: #E5E5E5
 }

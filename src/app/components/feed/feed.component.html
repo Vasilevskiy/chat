@@ -6,6 +6,9 @@
     <app-chat-window></app-chat-window>
   </div>
 </div>
+
+  <app-offer *ngIf="offerModal" ></app-offer>
+
 <div class="loader-background" *ngIf="loading">
   <div id="loading"></div>
 </div>

@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  // We get users list from db and make simple check by name
+
+  login(): void {
     this.auth.login().subscribe( (res: any) => {
       res.filter( user => {
         if ( user.name === this.name) {

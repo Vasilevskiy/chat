@@ -9,45 +9,75 @@ export class BaseService {
   private users = this.baseUrl + 'users/';
   private messages = this.baseUrl + 'messages/';
   private rooms = this.baseUrl + 'rooms/';
+  private offers = this.baseUrl + 'offers/';
   public loggedUser: any;
 
   constructor(private http: HttpClient) {
   }
 
-  getUsers(): Observable<any> {
+  // Get users list from db
+
+  getUsers(): Observable<object> {
     return this.http.get(this.users);
   }
 
-  getRoomById(id) {
+  // Get rooms by id
+
+  getRoomById(id): Observable<object> {
     return this.http.get(`${this.rooms}${id}?_embed=messages`);
   }
 
-  getOutMessage(id) {
-    return this.http.get(this.messages + '?targetId=' + id);
-  }
+  // Pushing messages to db
 
-  pushMessage(msg) {
+  pushMessage(msg): Observable<object> {
     return this.http.post(this.messages, msg);
   }
 
-  createRoom(room) {
+  // Create new room in out rooms list
+
+  createRoom(room): Observable<object> {
     return this.http.post(this.rooms, room);
   }
 
-  getUser(id): Observable<any> {
+  // Get user by id from db
+
+  getUser(id): Observable<object> {
     return this.http.get(this.users + id);
   }
 
-  getRooms(): Observable<any> {
+  // Get all rooms from db
+
+  getRooms(): Observable<Object> {
     return this.http.get(this.rooms);
   }
 
-  getLoggedUser() {
-    return this.loggedUser;
-  }
+  // Get our logged user and set it to our variable
 
-  setLoggedUser(user) {
+  setLoggedUser(user): void {
     this.loggedUser = user;
   }
 
+  // Create offer in db
+
+  createOffer(item): Observable<object> {
+    return this.http.post(this.offers, item);
+  }
+
+  // Get offers from db
+
+  getOffers(): Observable<object> {
+    return this.http.get(this.offers);
+  }
+
+  // Change status of existing offer in offers list
+
+  acceptOffer(offer): Observable<object> {
+    return this.http.put(this.offers + offer.id, offer);
+  }
+
+  // Change status of existing offer in offers list
+
+  rejectOffer(offer): Observable<object> {
+    return this.http.put(this.offers + offer.id, offer);
+  }
 }

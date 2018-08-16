@@ -16,18 +16,13 @@ export class ChatWindowComponent implements OnInit, DoCheck {
     this.loggedUser = JSON.parse(localStorage.getItem('user'));
   }
 
-  ngOnInit() {
-    if (this.person === undefined) {
-      this.message = 'Choose somebody from the left!';
-    }
-  }
+  ngOnInit() {}
+
+  // Checking for changes in our variables
 
   ngDoCheck() {
     this.person = this.chatService.getContactToChat();
     this.messages = this.chatService.getMessages();
-    console.log(this.messages.filter( item => {
-      if ( item.senderId === this.loggedUser.id) {return item;};
-    }));
   }
 
 }

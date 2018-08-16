@@ -2,29 +2,33 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Message} from '../components/models/message.model';
 import {BaseService} from './base.service';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
+import {Subject} from 'rxjs/Subject';
+import {Offer} from '../components/models/offer.model';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ChatService {
 
   public chatWith: any;
   public chatMessages = [];
-  public filteredMessages = [];
   private chatMessage: Message;
   public loggedUser: any;
-  public in = [];
-  public out = [];
-  public roomExists: boolean;
   public currentContactId: number;
   public room = {
     id: null,
     users: []
   };
+  public newOffer: Offer;
+  public receivedOffers = [];
+  public sendOfferModal: Subject<any> = new Subject<any>();
+  public receiveOfferModal: Subject<any> = new Subject<any>();
 
   constructor(private http: HttpClient, private baseService: BaseService) {
     this.getLoggedUser();
   }
+
+  // We start our chat, so we get our user by id on what user we click in the left menu. And update our chat messages
 
   beginToChat(contact) {
     this.getLoggedUser();
@@ -33,10 +37,10 @@ export class ChatService {
     }
     this.currentContactId = contact.id;
 
-    this.baseService.getUser(contact.id).subscribe(res => {
+    this.baseService.getUser(contact.id).subscribe((res: object) => {
       this.chatWith = res;
       this.baseService.getRooms()
-        .subscribe(rooms => {
+        .subscribe((rooms: Array<any>)  => {
           this.room = rooms.find(room => room.users.indexOf(this.loggedUser.id) !== -1 && room.users.indexOf(this.chatWith.id) !== -1);
           if (!this.room) {
             this.room = {
@@ -44,7 +48,7 @@ export class ChatService {
               users: [this.loggedUser.id, this.chatWith.id]
             };
             return this.baseService.createRoom(this.room)
-              .subscribe((room: any) => {
+              .subscribe((room: { id: string, users: Array<number>}) => {
                 return this.setMessages(room.id);
               });
           }
@@ -55,18 +59,23 @@ export class ChatService {
     });
   }
 
-  getLoggedUser() {
+  // Get our user from localHost
+
+  getLoggedUser(): void {
     this.loggedUser = JSON.parse(localStorage.getItem('user'));
   }
 
-  setMessages(roomId) {
+  // We get messages from existing room
+  setMessages(roomId): void {
     this.baseService.getRoomById(roomId)
       .subscribe((room: any) => {
         this.chatMessages = room.messages;
       });
   }
 
-  sendMessage(msg: string) {
+  // Sending message
+
+  sendMessage(msg: string): void {
     const timestamp = new Date();
     this.chatMessage = new Message(this.loggedUser.id, this.room.id, msg, timestamp);
     this.baseService.pushMessage(this.chatMessage).subscribe( (res: any) => {
@@ -75,16 +84,48 @@ export class ChatService {
     });
   }
 
-  conventStringToDate(date) {
+  // Create new offer
+
+  createOffer(form): void {
+    this.newOffer = new Offer(this.room.id, form.price, form.qty, this.loggedUser.id, this.chatWith.id);
+    this.baseService.createOffer(this.newOffer).subscribe();
+  }
+
+  // Get all offers from the server
+
+  getOffers(): void {
+    this.receivedOffers = [];
+    this.baseService.getOffers().subscribe((results: Array<any>) => {
+      results.filter(offer => {
+        if (offer.seller === this.chatWith.id && offer.buyer === this.loggedUser.id && (!offer.accept && !offer.reject)) {
+          this.receivedOffers.push(offer);
+        }
+      });
+    });
+  }
+
+  // We take our date and change type from string to Date
+
+  conventStringToDate(date): Date {
     return new Date(date);
   }
 
-  getMessages() {
+  // Get our messages
+
+  getMessages(): Array<any> {
     return this.chatMessages;
   }
 
-  getContactToChat() {
+  // Returning our chatWith object which is person that we are talking to
+
+  getContactToChat(): object {
     return this.chatWith;
+  }
+
+  // Returning our room object which includes all information
+
+  getRoom(): object {
+    return this.room;
   }
 
 }
